@@ -1,0 +1,5 @@
+JUST A SIMPLE BLOCKCHAIN IMPLEMENTATION IN PYTHON
+
+RUN WITH ``python main.py 5000`` 5000 is the port, please change the port you are using in env.py too
+
+IF YOU THINK THIS IMPLEMENTATION IS WRONG, FEEL FREE TO CONTACT ME
