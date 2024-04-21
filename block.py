@@ -20,6 +20,20 @@ class Block:
         self.nonce = utility.find_nonce(self.data, self.timestamp)
         self.hash = utility.create_hash(self.data, self.nonce, self.timestamp)
 
+    @staticmethod
+    def fill_from_json(data):
+        """
+        Fills in the block attributes from a JSON object.
+
+        Parameters:
+            data (dict): The JSON object to fill the block attributes from.
+
+        Returns:
+            Block
+        """
+
+        return Block(data['data'], data['hash'], data['nonce'], data['timestamp'])
+
     def to_json(self):
         return {
             'data': self.data,

@@ -33,6 +33,15 @@ def mine():
     }), 201
 
 
+@app.route('/nodes/blockchain/sync', methods=['POST'])
+def sync():
+    blockchain.consensus()
+
+    return jsonify({
+        'message': 'Successfully synced with the longest chain',
+    }), 201
+
+
 @app.route('/blockchain/validate', methods=['GET'])
 def validate():
     return jsonify({

@@ -134,8 +134,36 @@ class Blockchain:
         return [block.to_json() for block in self.chain]
 
     def consensus(self):
-        # create consensus
-        pass
+        """
+        Synchronizes the blockchain with the longest chain in the network.
+
+        Returns:
+            None
+        """
+        # filter nodes that are not the current node
+        nodes = filter(lambda port: port != self.port, env.nodes)
+
+        max_length = len(self.chain)
+
+        for node in nodes:
+            try:
+                # try to get the blockchain from the other node
+                response = requests.get(f'http://localhost:{node}/blockchain')
+                chain = response.json()
+
+                # check if the response is successful and the chain is longer than the current chain
+                if response.status_code == 200:
+                    length = len(chain)
+
+                    # if the chain is longer and valid, update the current chain
+                    if length >= max_length and self.validate_chain():
+                        max_length = length
+                        # update the chain with looping the chain and fill the block
+                        self.chain = [Block.fill_from_json(block) for block in chain]
+
+            except requests.exceptions.ConnectionError:
+                # sometimes the connection is refused, so we just continue to the next node
+                continue
 
     def last_block(self):
         """
