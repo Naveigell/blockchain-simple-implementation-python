@@ -18,6 +18,9 @@ class Blockchain:
         Returns:
             None
         """
+        # TODO: if the Blockchain is initialized, we should sync it into the other node, so the chain will be the same
+        #       and we don't need to create genesis block again
+
         # Set the port for the Blockchain
         self.port = port
 
